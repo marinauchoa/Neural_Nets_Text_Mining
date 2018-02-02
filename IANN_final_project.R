@@ -1,6 +1,6 @@
 # Introduction to Artificial Neural Networks
 # Final Project
-# Authors: Amir, Felipe and Marina
+# Authors: Amir Golkhari Baghini, Felipe Dutra Calainho and Marina Ferreira Uchoa
 
 
 #Download and run libraries
@@ -10,7 +10,9 @@ lapply(lib, require, character.only = T)
 rm(lib)
 
 #Import dataset
-setwd("\\\\dustudent\\home\\h16feldu\\Documents\\INN\\project")
+# The data used can be found and downloaded from Kaggle after according to the competition terms at:
+# www.kaggle.com/c/spooky-author-identification/data
+# We use the training data set
 dataset<-read.csv("IANN_Project_Data.csv")
 
 dataset<-cbind(dataset,class=revalue(as.factor(dataset[,3]),c("EAP"="1", "HPL"="2", "MWS"="3")))
@@ -121,14 +123,5 @@ vt<-as.matrix(pca$loadings)
 vti<-solve(vt)
 
 
-#tdm PCA
-#ttdmSub<-t(tdmSub)
-#test<-as.big.matrix(ttdmSub)
-#bigPCA<- big.PCA(test)
-#save and shutdown
-#save.image(file="project.RData")
-#system('shutdown -s')
-#PCA_tdm<-prcomp(t(tdmSub))
-#plot(PCA_tdm)
 
 
