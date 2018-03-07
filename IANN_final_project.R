@@ -34,6 +34,7 @@ corpusData <- Corpus(VectorSource(dataset$text))
 tdm <- TermDocumentMatrix(corpusData)
 tdm <- as.matrix(tdm)
 colnames(tdm)<-t(id)
+
 #Build Subset TDM
 # corpusDataSub <- Corpus(VectorSource(subset$text))
 # tdmSub <- TermDocumentMatrix(corpusDataSub)
@@ -68,12 +69,13 @@ colnames(sub_tdm)<-t(sub_dataset$id)
 targets<-targets[as.logical(!remove), drop=F]
 
 save.image(file="project_tdm_red_docs_2.RData")
-beep()
+#Uncomment below if you want a beep to sound when R is finished
+#beep()
 
 #Save csv
 write.csv(t(sub_tdm),"t_tdm.csv")
 write.csv(targets,"targets.csv",row.names = F)
-beep()
+#beep()
 #write.csv(tdmSub,"tdmSub.csv")
 #write.csv(targetsSub,"targetsSub.csv",row.names = F)
 
@@ -91,21 +93,26 @@ t.tdm<-t(sub_tdm)
 rm(targets, tdm, tdm_remove, remove, GCtorture, id,remove, corpusData,dataset,sub_dataset,sub_tdm)
 #Run PCA
 system.time(pca <- prcomp(t.tdm))
-beep()
+#beep()
 save.image(file="project_PCA_red_tdm.RData")
+
+
 #### PRINCIPAL COMPONENTS FULL
 PCS<-pca$x
 #### Cumulative porportion
 cuml_prop<-cumsum(pca$sdev^2 / sum(pca$sdev^2))
 which(cumsum(pca$sdev^2 / sum(pca$sdev^2))>=0.9)
+
 #### PRINCIPAL COMPONENTS 1 to 7 (cumulative importance 0.04)
 PC7<-PCS[,1:7]
 write.csv(PC7,"PC7.csv")
-beep()
+#beep()
+
 #### PRINCIPAL COMPONENTS 1 to 1000 (cumulative importance 0.67)
 PC1000<-PCS[,1:1000]
 write.csv(PC1000,"PC1000.csv")
-beep()
+#beep()
+
 #### PRINCIPAL COMPONENTS 1 to 2850 (cumulative importance 0.90)
 PC2850<-PCS[,1:2850]
 write.csv(PC2850,"PC2850.csv")
@@ -116,12 +123,8 @@ system.time(cov.x <- cov.wt(x,wt=x.wt))
 system.time(pca <- princomp(x, scores = T))
 system.time(pca <- prcomp(t.tdm))
 
-beep()
+#beep()
 save.image(file="project_PCA_6th.RData")
 ##########
 vt<-as.matrix(pca$loadings)
 vti<-solve(vt)
-
-
-
-
